@@ -1,0 +1,187 @@
+\input{config.tex}
+\begin{document} 
+
+\begin{multicols}{4}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\section{Premična pika}
+\[ x = (-1)^S m \cdot b^e\]
+\[ m = c_0 + c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t} \]
+\begin{align*}
+	S\quad \dots \quad & \text{predznak} \\
+	b\quad \dots \quad & \text{baza, ponavadi 2} \\
+	m\quad \dots \quad & \text{vrednost mantise} \\
+	t\quad \dots \quad & \text{dolžina mantise} \\
+	e\quad \dots \quad & \text{vrednost eksponenta $L \leq e \leq U$} \\
+	c_i\quad \dots \quad & \text{števke v mejah $0 \leq c_i \leq b-1$} \\
+\end{align*}
+
+Sistem premične pike označimo z $P(b, t, L, U)$.
+
+\subsection{Standard IEEE}
+Eksponent je zapisan z odmikom:
+\[ E = e + \text{odmik}\]
+Če je $E=0$, uporabimo \textbf{denormiran zapis}:
+\[ x = (-1)^S (c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t}) \cdot b^{e+1}\]
+Sicer pa \textbf{normiran zapis}:
+\[ x = (-1)^S (1 + c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t}) \cdot b^{e}\]
+
+Če so vsi biti eksponenta 1 in vsi biti mantise 0, je $x = (-1)^S \infty$.
+
+Če so vis biti eksponenta 1 in vsi biti mantise niso 0, je $x = \text{NaN}$.
+
+\begin{itemize}
+	\item \textbf{Single precision} $b=2$, $t=23$, $L=-126$, $U=127$,
+	odmik: 127
+	\begin{center}
+		\begin{tabular}{ |c|c|c| } 
+			\hline
+			\textit{predznak} 1 & \textit{exponent} 8 & \textit{mantisa} 23 \\ 
+			\hline
+		\end{tabular}
+	\end{center}
+	\item \textbf{Double precision} $b=2$, $t=52$, $L=-1022$, $U=1023$, 
+	odmik: 1023
+	\begin{center}
+		\begin{tabular}{ |c|c|c| } 
+		 \hline
+		 \textit{predznak} 1 & \textit{exponent} 11 & \textit{mantisa} 52 \\ 
+		 \hline
+		\end{tabular}
+	\end{center}
+\end{itemize}
+
+\subsection{Zaokroževanje}
+Naj bo $x$ pozitivno število z neskončnim zapisom
+\[ x = (c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t} + c_{t+1} b^{-t-1})  + \dots b^e \]
+
+Kandidata za približek $\text{fl}(x)$ sta:
+\begin{align*}
+	x_- =&\ (c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t}) b^e \\
+	x_+ =&\ (c_1 b^{-1} + c_2 b^{-2} + \dots + c_t b^{-t} + b^{-t}) b^e
+\end{align*}
+
+Vzamemo tistega, ki je bljižje. Če sta enako blizu, izberemo tistega, ki ima zadnjo števko sodo.
+
+\subsubsection{Osnovna zaokrožitvena napaka}
+\[ u = \frac{1}{2} b^{-t} \]
+\[ \text{fl}(x) = x(1+\delta) \quad \text{za} \quad |\delta| \leq u \]
+\[ \frac{|\text{fl}(x) - x|}{|x|} \leq u\]
+
+\section{Napake pri numeričnem računanju}
+\begin{itemize}
+	\item \textbf{Neodstranljiva napaka} Namesto $x$ imamo približek $\bar{x}$.
+	\[ D_n = f(x) - f(\bar{x}) \]
+	\item \textbf{Napaka metode} Namesto funkcije $f$ imamo približek $g$.
+	\[ D_m = f(\bar{x}) - g(\bar{x})\]
+	\item \textbf{Zaokrožitvena napaka} Pri računanju $\tilde{y} = f(\bar{x})$ se pri vsaki operaciji se pojavi zaokrožitvena napaka. Namesto $\tilde{y}$ dobimo $\hat{y}$.
+	\[ D_z = \tilde{y} - \hat{y}\]
+\end{itemize}
+
+Celotna napaka je $D = |D_n| + |D_m| + |D_z|$.
+
+\subsection{Stopnja občutljivosti}
+\textit{Razmerje velikosti spremembe podatkov in spremembe rezultata.}
+
+Naj bo $f: \mathbb{R} \to \mathbb{R}$ zvezno odvedlijva funkcija in $\delta x$ majhna motnja.
+\begin{itemize}
+	\item \textbf{Absolutna občutljivost} $f$ v točki $x$:
+	\[ | f(x + \delta x) - f(x) | \approx |f'(x)| \cdot |\delta x| \]
+	\item \textbf{Relativna občutljivost} $f$ v točki $x$:
+	\[ \frac{| f(x + \delta x) - f(x) |}{|f(x)|} \approx \frac{|f'(x)| \cdot |\delta x|}{|f(x)|} \]
+\end{itemize}
+
+\subsection{Obratna in direktna stabilnost}
+\begin{itemize}
+	\item \textbf{Direktna stabilnost}: za vsak $x$ direktna napaka ($|f(x) - f(x + \Delta x)|$) majhna (absolutno oz. relativno).
+	\item \textbf{Obratna stabilnost}: za vsak $x$ razlika $\Delta x$, ki bi nam dala pravi rezultat majhna.
+\end{itemize}
+
+\[ |\text{direktna napaka}| \lesssim \text{občutlijvost} \cdot |\text{obratna napaka}|\]
+
+\section{Nelinearne enačbe}
+Iščemo ničle funkcije $f$.
+\begin{itemize}
+	\item \textbf{Enostavne ničle}: 
+	\[f(\alpha) = 0 \quad \text{in} \quad f'(\alpha) \neq 0\]
+	\item \textbf{m-kratne ničle}: 
+	\[f(\alpha) = f'(\alpha) = \dots = f^{(m-1)}(\alpha) = 0\]
+\end{itemize}
+
+\subsection{Občutljivost ničle}
+Naj bo $\alpha$  $m$-kratna ničla $\hat{\alpha}$ približek, da je $f(\hat{\alpha}) = \varepsilon$.
+
+Če $f$ razvijemo v Taylorjevo vrsto okoli $\alpha$ in vzamemo prvih $m+1$ členov dobimo:
+
+\begin{align*}
+	\varepsilon &\doteq \frac{f^{(m)} (\alpha)}{ m! }(\hat{\alpha} - \alpha )^m &
+	|\hat{\alpha} - \alpha| &\doteq \sqrt[m]{\frac{\varepsilon \cdot m!}{|f^{(m)} (\alpha)|}}
+\end{align*}
+
+
+\subsection{Bisekcija}
+
+\begin{koda}[]
+vhod: funkcija $f: [a,b] \to \mathbb{R}$, $f(a)f(b) < 0$, natancnost $\varepsilon$
+izhod: nicla funkcije $f$
+
+dokler $|b-a| > \varepsilon$:
+	$c \leftarrow \frac{a+b}{2}$
+	ce $\text{sign}(f(c)) = \text{sign}(f(a))$:
+		$a \leftarrow c$
+	sicer:
+		$b \leftarrow c$
+vrni $c$
+\end{koda}
+
+$c$ je približek ničle $\alpha$. Velja
+\[ |\alpha - c| \leq \frac{b-a}{2^m} \leq \varepsilon\]
+
+Za natančnost $\varepsilon$ potrebujemo  $\log_2 \left( \frac{b-a}{\varepsilon}\right)$ korakov.
+
+
+\subsection{Navadna iteracija}
+Rešujemo $f(x) = 0$. Enačbo pretvorimo v $x = g(x)$. Načinov je veliko:
+\begin{itemize}
+	\item $g(x) = f(x) + x$
+	\item $g(x) = cf(x) + x$
+	\item $g(x) = h(x)f(x) + x$ kjer je $h(x)$ funkcija, ki nima ničle v $\alpha$.
+\end{itemize}
+
+\subsubsection{Izrek o konvergenci navadne iteracije}
+Naj bo $\alpha$ negibna točka za $g$ in naj $g$ na intervalu $[\alpha - d, \alpha + d]$ ($d > 0$)
+zadošča Lipschitzovemu pogoju:
+\[ \exists m \in [0, 1)\ \forall x,y \in I\ : |g(x) - g(y)| \leq m |x-y| \]
+tedaj je $g$ \textit{skrčitev} na $I$.
+
+Potem za vsak $x_0 \in I$ zaporedje $x_{r+1} = g(x_r)$ konvergira k $\alpha$ in velja:
+\[ |x_r - \alpha| \leq \frac{m}{1-m} |x_r - x_{r-1}| \]
+
+\textit{Posledica}: Če je $g$ zvezno odvedljiva v $\alpha$ in velja $g'(\alpha) < 1$, obstaja interval $I$, ki vsebuje $\alpha$, da za vsak $x_0 \in I$ zaporedje konvergira k $\alpha$.
+
+\begin{itemize}
+	\item Če je $|g'(\alpha)| < 1$, je $\alpha$ \textit{privlačna negibna točka}
+	\item Če je $|g'(\alpha)| > 1$, je $\alpha$ \textit{odbojna negibna točka}
+\end{itemize}
+
+Če je $\alpha$ odbojna za $g$, je privlačna za $g^{-1}$:\\ $g(x) = x \implies x = g^{-1}(x)$
+
+\subsubsection{Hitrost konvergence}
+$p > 0$ je red konvergence, če $\exists C_1, C_2 > 0$, da za vse dovolj pozne člene zaporedja $x_{r+1} = g(x_r)$ velja:
+\[ C_1 |x_r - \alpha|^p \leq |x_{r+1} - \alpha| \leq C_2 |x_r - \alpha|^p \]
+\textit{Vsak korak se št. decimalk pomnoži s $p$.}
+
+Naj bo $g$ v okolici $\alpha$ $p$-krat zvezno odvedlijva in naj velja 
+$g(\alpha) = \alpha$, $g'(\alpha) = \dots = g^{(p-1)}(\alpha) = 0$ in $g^{(p)}(\alpha) \neq 0$.
+Tedaj je red konvergence enak $p$.
+
+\subsubsection{Standardni redi konvergence}
+\begin{align*}
+	p=1 & \quad \dots \quad \text{linearna konvergenca} \\
+	p=2 & \quad \dots \quad \text{kvadratična konvergenca}
+\end{align*}
+\end{multicols}
+\end{document}
