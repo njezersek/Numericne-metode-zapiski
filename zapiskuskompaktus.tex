@@ -183,5 +183,36 @@ Tedaj je red konvergence enak $p$.
 	p=1 & \quad \dots \quad \text{linearna konvergenca} \\
 	p=2 & \quad \dots \quad \text{kvadratična konvergenca}
 \end{align*}
+
+
+\subsection{Tangentna (Newtonova) metoda}
+\[ x_{r+1} = x_r - \frac{f(x_r)}{x_r}\]
+Red konvergence:
+\begin{itemize}
+	\item 2, če je $\alpha$ enkratna ničla $f'(\alpha) \neq 0$
+	\item 3, če je $f'(\alpha) \neq 0$ in $f''(\alpha) = 0$
+	\item 1, če je $\alpha$ večkratna ničla $f'(\alpha) = 0$
+\end{itemize}
+
+\subsection{Sekantna metoda}
+\[ x_{r+1} = x_r - \frac{f(x_r)}{ \frac{f(x_r)-f(x_{r-1})}{x_r - x_{r-1}} }\]
+
+Red konvergence: $\frac{\sqrt{5}+1}{2} \approx 1.62$
+
+\subsection{Metoda $(f,f',f'')$}
+\[ x_{r+1} = x_r - \frac{f(x_r)}{f'(x_r)} - \frac{f''(x_r) f^2(x_r)}{2f'^3(x_r)}\]
+
+Red konvergence: 3 \textit{(pri predpostavkah)}
+
+\subsection{Müllerjeva metoda}
+Na $x_r$, $x_{r-1}$, $x_{r-2}$ napnemo parabolo, ničla parabole je naslednji približek.
+
+\[ p(x) = a(x - x_r)^2 + b(x-x_r) + c\]
+\[ x_{r+1} = x_r - \frac{2c}{b+\text{sign}(b) \sqrt{b^2-4ac}}\]
+
+\subsection{Hallejeva metoda}
+\[ x_{r+1} = x_r - \frac{2 f(x_r) f'(x_r)}{2 f'(x_r)^2 - f(x) f''(x)}\]
+
+
 \end{multicols}
 \end{document}
