@@ -85,3 +85,8 @@
 }
 {}
 % -----------------------------------------------------------------------
+
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash$}m{#1}<{$}}
+\newlength{\mycolwd}                                         % array column width
+\settowidth{\mycolwd}{$e^{-\frac{i}{\hbar}|A|t}$}% "width" of $e^{-\frac{i}{\hbar}|A|t$; largest element in array

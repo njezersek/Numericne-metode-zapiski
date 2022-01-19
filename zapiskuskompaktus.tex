@@ -213,6 +213,31 @@ Na $x_r$, $x_{r-1}$, $x_{r-2}$ napnemo parabolo, ničla parabole je naslednji pr
 \subsection{Hallejeva metoda}
 \[ x_{r+1} = x_r - \frac{2 f(x_r) f'(x_r)}{2 f'(x_r)^2 - f(x) f''(x)}\]
 
+\section{Iskanje ničel polinoma}
+\[ p_n(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0, \quad a_n \neq 0\]
+
+\subsection{Durand-Kernerjeva metoda}
+Naj bodo $z_1, \dots, z_n$ približki za $\alpha_1, \dots, \alpha_n$. 
+\[ z_i^{(r+1)} = z_i^{(r)} - \frac{p(z_i^{(r)})}{\prod\limits_{\substack{k=1 \\ k\neq i}}^n (z_i^{(r)} - z_k^{(r)})}\]
+
+\subsection{Metoda pridužene matrike}
+
+\renewcommand*{\arraystretch}{1.5}
+\begin{equation*}
+	C_{p_n}=\left [
+	\begin{array}{*{6}{@{}C{\mycolwd}@{}}}
+		0 & 1 &  \dots     & 0  & 0 \\
+		& 0 &  &   &  \\
+	  \vdots &    & \ddots & & \vdots \\
+		&   &        & 1 & 0 \\
+		&   &        & 0 & 1 \\
+	  -\frac{a_0}{a_n} & -\frac{a_1}{a_n} & \dots & -\frac{a_{n-2}}{a_n} & -\frac{a_{n-1}}{a_n}
+	\end{array}
+	\right ]
+\end{equation*}
+
+Lastne vrednosti (ničle $\det(C-\lambda I)$) matrike $C_{p_n}$ so ravno ničle polinoma $p_n$.
+
 
 \end{multicols}
 \end{document}
