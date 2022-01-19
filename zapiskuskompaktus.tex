@@ -238,36 +238,6 @@ Naj bodo $z_1, \dots, z_n$ približki za $\alpha_1, \dots, \alpha_n$.
 
 Lastne vrednosti (ničle $\det(C-\lambda I)$) matrike $C_{p_n}$ so ravno ničle polinoma $p_n$.
 
-\section{Reševanje sistemov linearnih enačb}
-Imamo $m$ enačb in $n$ neznank:
-\begin{itemize}
-	\item $m < n$: \textbf{nedoločen}, $\infty$ rešitev
-	\item $m = n$: \textbf{kvadraten}, ponavadi $1$ rešitev
-	\item $m > n$: \textbf{predoločen}, ponavadi $0$ rešitev
-\end{itemize}
-
-\[ A x = b \qquad A \in \mathbb{R}^{m \times n} \quad b \in \mathbb{R}^m  \quad x \in \mathbb{R}^n\]
-\begin{align*}
-	\text{Im}A &= \left\{ Ax : x \in \mathbb{R}^n \right\} = \text{Lin}\{a_1, \dots, a_n\} \\
-	\text{Ker}A &= \left\{ x \in \mathbb{R}^n : Ax = 0 \right\}
-\end{align*}
-\[ \text{rang}A = n - \dim (\text{Ker}A)\]
-
-Če je $m=n$, so naslednje izjave ekvivalentne:
-\begin{itemize}
-	\item $\exists A^{-1}: A^{-1} A = I = A^{-1}A$
-	\item $\det(A) \neq 0$
-	\item $\text{rang}A = n$
-	\item $\text{Ker}A = \{0\}$
-\end{itemize}
-
-Lastnosti matrike A:
-\begin{align*}
-	A = A^T & \quad \dots \quad \text{simetrična} \\
-	A = A^H & \quad \dots \quad \text{hermitska} \\
-	A^T A = I & \quad \dots \quad \text{ortogonalna}
-\end{align*}
-
 \section{Vektorske in matrične norme}
 $\|\cdot \| : \mathbb{R}^n \to \mathbb{R}_+$ je vektorska norma, če
 \begin{itemize}
@@ -310,5 +280,76 @@ Na končno dimenzijskih prostorih so vse norme ekvivalentne
 
 Za vsako operatorsko normo nad kvadratnimi matrikami velja:
 \[ |\lambda | \leq \|A\| \qquad \lambda \text{ lastna vrednost matrike A}\]
+
+\section{Reševanje sistemov linearnih enačb}
+Imamo $m$ enačb in $n$ neznank:
+\begin{itemize}
+	\item $m < n$: \textbf{nedoločen}, $\infty$ rešitev
+	\item $m = n$: \textbf{kvadraten}, ponavadi $1$ rešitev
+	\item $m > n$: \textbf{predoločen}, ponavadi $0$ rešitev
+\end{itemize}
+
+\[ A x = b \qquad A \in \mathbb{R}^{m \times n} \quad b \in \mathbb{R}^m  \quad x \in \mathbb{R}^n\]
+\begin{align*}
+	\text{Im}A &= \left\{ Ax : x \in \mathbb{R}^n \right\} = \text{Lin}\{a_1, \dots, a_n\} \\
+	\text{Ker}A &= \left\{ x \in \mathbb{R}^n : Ax = 0 \right\}
+\end{align*}
+\[ \text{rang}A = n - \dim (\text{Ker}A)\]
+
+Če je $m=n$, so naslednje izjave ekvivalentne:
+\begin{itemize}
+	\item $\exists A^{-1}: A^{-1} A = I = A^{-1}A$
+	\item $\det(A) \neq 0$
+	\item $\text{rang}A = n$
+	\item $\text{Ker}A = \{0\}$
+\end{itemize}
+
+Lastnosti matrike A:
+\begin{align*}
+	A = A^T & \quad \dots \quad \text{simetrična} \\
+	A = A^H & \quad \dots \quad \text{hermitska} \\
+	A^T A = I & \quad \dots \quad \text{ortogonalna}
+\end{align*}
+
+\section{LU razcep}
+Matriko $A$ zapišemo kot produkt $LU$, kjer je $L$ spodnje trikotna z $1$ na diagonali, $U$ pa zgornje trikotna.
+
+Sistem enačb $Ax = b$ potem rešujemo kot:
+\[L(Ux) = b \implies Ly = b \implies Ux = y\]
+
+\subsection{Elementarne eliminacije}
+Matriko $A$ množimo z elementarnimi matrikami $L_k$
+\[ A^{(k)} = L_{k-1} \dots L_1 A\]
+
+\begin{align*}
+	L_k &= I - l_k e_k^T & L_k^{-1} &= I + l_k e_k^T
+\end{align*}
+\[ l_k = \begin{bmatrix}
+	0 &
+	\dots &
+	0 &
+	\frac{a^{(k)}_{k+1, k}}{a^{(k)}_{k, k}} &
+	\dots &
+	\frac{a^{(k)}_{n, k}}{a^{(k)}_{k, k}}
+\end{bmatrix}^T \]
+\[ e_k = \begin{bmatrix}
+	0 &
+	\dots &
+	0 &
+	1 &
+	0 &
+	\dots &
+	0
+\end{bmatrix}^T \]
+
+\[L = L_1^{-1} \dots L_{n-1}^{-1}\]
+\[U = L_{n-1} \dots L_1 A\]
+
+Za nesingularno matriko $A \in \mathbb{n\times n}$ obstaja enolični LU razcep $\iff$ vse vodilne podmatrike ($A_k = A(1:k, 1:k)$) nesingularne.
+
+\subsection{LU razcep z delnim pivotiranjem}
+Preden dolčimo $L_k$ zamenjamo $k$-to in $\underset{i=k \dots n}{\ \mathrm{argmax}} |a^{(k)}_{k,i}|$-to vrstico matrike $A^{k}$.
+
+
 \end{multicols}
 \end{document}
