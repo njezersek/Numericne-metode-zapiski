@@ -238,6 +238,77 @@ Naj bodo $z_1, \dots, z_n$ približki za $\alpha_1, \dots, \alpha_n$.
 
 Lastne vrednosti (ničle $\det(C-\lambda I)$) matrike $C_{p_n}$ so ravno ničle polinoma $p_n$.
 
+\section{Reševanje sistemov linearnih enačb}
+Imamo $m$ enačb in $n$ neznank:
+\begin{itemize}
+	\item $m < n$: \textbf{nedoločen}, $\infty$ rešitev
+	\item $m = n$: \textbf{kvadraten}, ponavadi $1$ rešitev
+	\item $m > n$: \textbf{predoločen}, ponavadi $0$ rešitev
+\end{itemize}
 
+\[ A x = b \qquad A \in \mathbb{R}^{m \times n} \quad b \in \mathbb{R}^m  \quad x \in \mathbb{R}^n\]
+\begin{align*}
+	\text{Im}A &= \left\{ Ax : x \in \mathbb{R}^n \right\} = \text{Lin}\{a_1, \dots, a_n\} \\
+	\text{Ker}A &= \left\{ x \in \mathbb{R}^n : Ax = 0 \right\}
+\end{align*}
+\[ \text{rang}A = n - \dim (\text{Ker}A)\]
+
+Če je $m=n$, so naslednje izjave ekvivalentne:
+\begin{itemize}
+	\item $\exists A^{-1}: A^{-1} A = I = A^{-1}A$
+	\item $\det(A) \neq 0$
+	\item $\text{rang}A = n$
+	\item $\text{Ker}A = \{0\}$
+\end{itemize}
+
+Lastnosti matrike A:
+\begin{align*}
+	A = A^T & \quad \dots \quad \text{simetrična} \\
+	A = A^H & \quad \dots \quad \text{hermitska} \\
+	A^T A = I & \quad \dots \quad \text{ortogonalna}
+\end{align*}
+
+\section{Vektorske in matrične norme}
+$\|\cdot \| : \mathbb{R}^n \to \mathbb{R}_+$ je vektorska norma, če
+\begin{itemize}
+	\item $\| x \| \geq 0$ in $\| x \| = 0 \iff x = 0$
+	\item $\| \alpha x \| = |\alpha| \| x \|$, $\alpha \in \mathbb{R}$
+	\item $\| x + y \| \leq \| x \| + \| y \|$
+\end{itemize}
+
+\begin{align*}
+	\| x\|_p &= \sqrt[p]{|x_1|^p + \dots + |x_n|^p} & \dots \quad & p\text{-norma} \\
+	\| x \|_\infty &= \max\limits_{1 \leq i \leq n} |x_i| & \dots \quad & \text{max norma}
+\end{align*}
+
+Cauchy-Schwartzova neenakost: $|x^T y| \leq \|x\|_2\ \|y\|_2$
+
+$\|\cdot \| : \mathbb{R}^{m \times n} \to \mathbb{R}_+$ je matrična norma, če
+\begin{itemize}
+	\item $\| A \| \geq 0$ in $\| A \| = 0 \iff A = 0$
+	\item $\| \alpha A \| = |\alpha| \| A \|$, $\alpha \in \mathbb{R}$
+	\item $\| A + B \| \leq \| A \| + \| B \|$
+	\item $\| A  B \| \leq \| A \|  \| B \|$ \textit{submultiplikativnost}
+\end{itemize}
+
+\begin{align*}
+	\| A \|_1 &= \max_{x\neq 0} \frac{\| Ax\|_1}{\|x\|_1} = \max_{1 \leq j \leq n} \overbrace{\left( \sum_{k=1}^m |a_{kj}| \right)}^{\| a_j\|_1}\\
+	\| A \|_2 &= \max_{x\neq 0} \frac{\| Ax\|_2}{\|x\|_2} =\sqrt{\rho (A^T A)} \\
+	\| A \|_\infty &= \max_{x\neq 0} \frac{\| Ax\|_\infty}{\|x\|_\infty} = \max\limits_{1 \leq i \leq m} \left( \sum_{k=1}^n |a_{ik}| \right) \\
+	\| A \|_F &= \sqrt{\sum_{i,j} a_{ij}^2}\\
+	\| A \|_{op} &= \max_{\|c\|_v = 1} || A x ||_v \qquad \textit{$\|\cdot \|_v$ vekt. norma}
+\end{align*}
+
+\textbf{spektralni radij} $\rho(A) = \max\{ |\lambda_1|, \dots, |\lambda_n| \}$, kjer so $\lambda$ lastne vrednosti matrike $A$.
+
+Matrična norma $\| \cdot \|_m$ je \textbf{usklajena} z vektorsko normo $\|\cdot \|_v$, če je
+\[ \| Ax \|_v \leq \| A \|_m \| x \|_v \]
+
+
+Na končno dimenzijskih prostorih so vse norme ekvivalentne
+\[ \| \cdot \|_\alpha, \| \cdot \|_\beta \implies C_1 \| A \|_\beta \leq \| A \|_\alpha \leq C_2 \| A \|_\beta \]
+
+Za vsako operatorsko normo nad kvadratnimi matrikami velja:
+\[ |\lambda | \leq \|A\| \qquad \lambda \text{ lastna vrednost matrike A}\]
 \end{multicols}
 \end{document}
