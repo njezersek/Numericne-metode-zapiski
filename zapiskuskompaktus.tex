@@ -350,6 +350,67 @@ Za nesingularno matriko $A \in \mathbb{n\times n}$ obstaja enolični LU razcep $
 \subsection{LU razcep z delnim pivotiranjem}
 Preden dolčimo $L_k$ zamenjamo $k$-to in $\underset{i=k \dots n}{\ \mathrm{argmax}} |a^{(k)}_{k,i}|$-to vrstico matrike $A^{k}$.
 
+\subsection{Občutlivost sistemov linearnih enačb}
+\[ \kappa(A) = \| A^{-1} \| \| A \| \quad \text{število občutlivosti}\]
+\[ (A + \delta A)(x + \delta x) = (b + \delta b)\]
+\[ \frac{\| \delta x \| }{\| x \|} \leq \frac{\kappa(A)}{1-\kappa(A) \frac{\| \delta A \|}{\| A \|}} \left( \frac{\| \delta A \|}{\| A \|} + \frac{\| \delta b \|}{\| b \|} \right)\]
+
+Približno velja $\kappa(A) = 10^e$ $\implies$ relativna napaka rešitve reda $10^{e-16}$
+
+\section{Razcep Choleskega}
+Matrika $A$ je \textbf{simetrična pozitivno definitna} (SPD), če je $A = A^T$ in $\forall x \neq 0:\ x^T(Ax) > 0$.
+
+Lastnosti SPD matrik:
+\begin{itemize}
+	\item vse vodilne podmatrike ($A(1:k, 1:k)$) so SPD
+	\item $A([i_1, \dots, i_k], [i_1, \dots, i_k])$, kjer je $1 \leq i_1 < \dots < i_k \leq n$ je SPD
+	\item $A$ je SPD $\iff$ vse lastne vrednosti pozitivne
+	\item Naj bo $C$ obrnljiva, potem je $CAC^T$ SPD
+	\item Če je $A$ SPD, je $A_{ii} > 0$ in $\max\limits_{i,j} |a_{ij}| = a_{kk}$
+\end{itemize}
+
+Matrika $A \in \mathbb{R}^{n\times n}, \det A \neq 0$ je SPD $\iff$ obstaja nesingularna spodnje trikotna matrika $V$ s pozitivnimi diagonalnimi elementi, da je $A = VV^T$
+
+\subsection{Algoritem za razcep Cholskega}
+Prvi stolpec matrike $V$ izračunamo:
+\[
+\begin{bmatrix}
+	a_{11} \\ \vdots \\ a_{n1}
+\end{bmatrix}
+=
+v_{11} \begin{bmatrix}
+	v_{11} \\ \vdots \\ v_{n1}
+\end{bmatrix}
+\]
+
+$j$-ti stolpec izračunamo:
+\[
+	\begin{bmatrix}
+		a_{1j} \\ a_{2j} \\ \vdots \\ \vdots \\ a_{nj}
+	\end{bmatrix}
+	=
+	v_{j1} \begin{bmatrix}
+		v_{11} \\ v_{21} \\ \vdots \\ \vdots \\ v_{n1}
+	\end{bmatrix}
+	+
+	v_{j2} \begin{bmatrix}
+		0 \\ v_{22} \\ \vdots \\ \vdots \\ v_{n2}
+	\end{bmatrix}
+	+ \dots +
+	v_{jj} \begin{bmatrix}
+		0 \\ \vdots \\ v_{jj} \\ \vdots \\ v_{nj}
+	\end{bmatrix}
+\]
+
+\begin{koda}
+vhod: matrika $A$ z elementi $a_{ij}$
+izhod: matrika $V$ z elementi $v_{ij}$
+za vsak $j = 1 \dots n$:
+	$v_{jj} \leftarrow \sqrt{a_{jj}-\sum\limits_{k=1}^{j-1} v_{jk}^2}$
+	za vsak $i = j+1 \dots n$:
+		$v_{ij} \leftarrow \frac{1}{v_{jj}} \left( a_{ij} - \sum\limits_{k=1}^{j-1} v_{ik} v_{jk} \right)$
+vrni V
+\end{koda}
 
 \end{multicols}
 \end{document}
