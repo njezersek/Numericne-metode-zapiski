@@ -412,5 +412,39 @@ za vsak $j = 1 \dots n$:
 vrni V
 \end{koda}
 
+\section{Reševanje sistemov nelinearnih enačb}
+$F: \mathbb{R}^n \to \mathbb{R}^n$, $F = (f_1, \dots, f_n)^T$, $x = (x_1, \dots, x_n)^T$ rešujemo $F(x) = 0$
+
+\subsection{Posplošitev navadne iteracije}
+$F(x) = 0$ $\implies$ $G(x) = x$
+\[ x^{(r+1)} = G(x^{r})\]
+
+\subsubsection{Jakobijeva matrika}
+\[
+	J_F = \begin{bmatrix}
+		\frac{\partial f_1}{\partial x_1} & \dots & \frac{\partial f_1}{\partial x_n} \\
+		\vdots & \ddots & \vdots \\
+		\frac{\partial f_n}{\partial x_1} & \dots & \frac{\partial f_n}{\partial x_n}
+	\end{bmatrix}
+\]
+
+Če obstaja odprta množica $\Omega \subseteq \mathbb{R}^n$ z lastnostmi:
+\begin{itemize}
+	\item $x \in \Omega \implies G(x) \in \Omega$
+	\item $x \in \Omega \implies \rho(J_G(x)) \leq q < 1$
+\end{itemize}
+potem ima $G$ na $\Omega$ natanko eno negibno točko $\alpha$, ki jo dobimo kot:
+\[ \lim_{r\to \infty} x^{(r)} \quad \text{za poljuben } x^{(0)} \in \Omega \]
+
+\subsection{Newtnova metoda na več dimenzijah}
+\[ G(x) = x - J_F^{-1}(x) F(x) \]
+
+\subsection{Broydenova metoda}
+Spremembo $\Delta x$ izračunamo iz enačbe:
+\[ B_r \Delta x^{(r)} = -F(x^{(r)})\]
+\[ x^{(r+1)} = x^{(r)} + \Delta x^{(x)}\]
+\[ B_{r+1} = B_r + \frac{F(x^{(r)})(\Delta x^{(r)})^T}{ (\Delta x^{(r)})^T \Delta x^{(x)}}\]
+
+Za $B_0$ vzamemo $J_F(x^{(0)})$ ali pa kar $I$.
 \end{multicols}
 \end{document}
