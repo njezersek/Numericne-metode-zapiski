@@ -446,5 +446,39 @@ Spremembo $\Delta x$ izračunamo iz enačbe:
 \[ B_{r+1} = B_r + \frac{F(x^{(r)})(\Delta x^{(r)})^T}{ (\Delta x^{(r)})^T \Delta x^{(x)}}\]
 
 Za $B_0$ vzamemo $J_F(x^{(0)})$ ali pa kar $I$.
+
+\section{Variacijske metode}
+Ekstremi funkcije $G: \mathbb{R}^n \to \mathbb{R}$:
+
+Potreben pogoj za ekstrem je $\nabla G(\alpha) = 0$.
+
+Karakterizacija s Hessejevo matriko:
+\[ H_G (\alpha) = \begin{bmatrix}
+	\frac{\partial^2 G}{\partial x_i \partial x_j}
+\end{bmatrix}_{i,j  = 1}^n
+\]
+\begin{itemize}
+	\item $H_G(\alpha)$ poz. definitna $\implies$ min
+	\item $H_G(\alpha)$ neg. definitna $\implies$ max
+	\item $H_G(\alpha)$ nedefinitna $\implies$ ni ekstrema
+	\item $H_G(\alpha)$ semidefinitna $\implies$ ne vemo
+\end{itemize}
+
+\subsection{Metoda za iskanje minimuma}
+Naj bo $x^{(r)}$ tekoči približek za minimum.
+\[ x^{(r+1)} = x^{(r)} + \lambda_r v_r\]
+Izberemo tako smer spusta $v_r$ in velikost koraka $\lambda_r$, da je $G(x^{(r+1)}) < G(x^{(r)})$.
+\begin{align*}
+	v_r = - \nabla G(x^{(r)}) & \ \dots \ \text{Metoda najhitrejšega spusta}
+\end{align*} 
+Za določitev $\lambda$ gledamo $g_r(\lambda) = G(x^{(r)} + \lambda v_r)$:
+\begin{itemize}
+	\item \textit{Največji spust}: $\lambda_r$ je rešitev $g_r'(\lambda) = 0$
+	\item \textit{Tangentni spust}: $\lambda_r = \frac{-g_r(0)}{g_r'(0)}$ \\
+	Če je $g_r(\lambda_r) > g_r(0)$, razpolavljamo $\lambda_r$, dokler ni $g_r(\lambda_r) < g_r(0)$
+\end{itemize}
+
+
+
 \end{multicols}
 \end{document}
