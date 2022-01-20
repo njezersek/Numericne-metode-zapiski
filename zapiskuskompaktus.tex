@@ -569,5 +569,40 @@ Prvi $c$ je na presečišču $i$. vrstice in stolpca, drugi pa na presečišču 
 		r \\ 0
 	\end{bmatrix}
 \end{align*}
+
+\subsection{Householderjeva zrcaljenja}
+\[ P_n \dots P_1 A = R \qquad Q = P_1 \dots P_n\]
+Iščemo ortogonalno matriko $P$, ki stolpec $a_i$ preslika v vektor, ki ima samo prvi element neničeln.
+
+Najprej določimo smer zrcaljenja:
+\begin{align*}
+	w &= \begin{bmatrix}
+		\text{sign}(a_{1i}) \| a_i \| + a_{1i} \\
+		a_{2i} \\
+		\vdots \\
+		a_{ni}
+	\end{bmatrix} &
+	P_i &= I - \frac{2}{w^Tw}(ww^T)
+\end{align*}
+
+\[ P_i a_i = a_i - \frac{2}{w^Tw}w(w^Ta_i) \]
+
+Postopek za izračun $Ax = b:$
+\begin{itemize}
+	\item Začnemo z $A^{(0)} := A$ in $b^{(0)} := b$
+	\item Določimo smer zrcaljenja $w$ glede na prvi stolpec matrike $A^{(i)}$
+	\item Izračunamo $A^{(i+1)} := PA(\text{2:,2:})$ in $b^{(i+1)} := Pb(\text{2:})$
+	\item $R$ dobimo tako, da matrike $A^{(i)}$ prekrijemo tako, da manjše prepišejo večje.
+	\item $Q^Tb$ dobima tako, da vektorje $b^{(i)}$ brekrijemo tako, da majnjši prepišejo večje.
+	\item Rešimo $Rx = Q^Tb$.
+\end{itemize}
+
+Lastnosti matrike $P$
+\begin{itemize}
+	\item $P = P^T$
+	\item $P$ je ortogonalna
+	\item $w$ je lastni vektor z lastno vrednostjo $-1$
+\end{itemize}
+
 \end{multicols}
 \end{document}
