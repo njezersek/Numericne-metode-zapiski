@@ -628,5 +628,34 @@ Postopek:
 Če je $A \in \mathbb{R}^{m\times n}$, $\text{rang}(A) = n$, potem je minimum $\| Ax - b\|$ dosežen pri
 \[ x = \sum_{i=1}^n \frac{u_i^Tb}{\sigma_i} v_i\]
 
+\section{Psevdoinverz}
+$A \in \mathbb{R}^{m\times n}$, $m \geq n$, če je $\text{rang}(A) = n$, je psevdoinverz:
+\[A^+ = (A^TA)^{-1}A^T \]
+če je $\text{rang}(A) = m$, pa je psevdoinverz
+\[A^+ = A^T(AA^T)^{-1} \]
+
+Matrika $X$ je psevdoinverz matrike $A$, če velja:
+\begin{itemize}
+	\item $AXA = A$
+	\item $XAX = X$
+	\item $(AX)^T=AX$
+	\item $(XA)^T=XA$
+\end{itemize}
+
+Naj bo $A \in \mathbb{R}^{m\times n}$, $m \geq n$, $\text{rang}(A) = r \leq n$ in $A = V \Sigma U^T$.
+Potem je psevdoinverz matrike $A$:
+\[A^+ = V \Sigma^+ U^T\]
+\begin{align*}
+	\Sigma &= \begin{bmatrix}
+		S & 0 \\ 0 & 0
+	\end{bmatrix} &
+	\Sigma^+ &= \begin{bmatrix}
+		S^{-1} & 0 \\ 0 & 0
+	\end{bmatrix}
+\end{align*}
+\[ S = \text{diag}(\sigma_1, \dots, \sigma_r) \]
+
+\subsection{Reševanje najmanjših kvadratov s psevdoinverzom}
+\[ x = A^+ b\]
 \end{multicols}
 \end{document}
