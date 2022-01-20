@@ -503,12 +503,71 @@ za vsak $k = 1, \dots, n$:
 	za vsak $i = 1, \dots, k-1$:
 		ce modificiran nacin:
 			$r_{ik} \leftarrow q_i^T q_k$
-			$q_k \leftarrow q_k - r_{ik} q_i$
 		sicer:
 			$r_{ik} \leftarrow q_i^T a_k$
+		$q_k \leftarrow q_k - r_{ik} q_i$
 	$r_{kk} \leftarrow \| q_k \|_2$
 	$q_k \leftarrow \frac{q_k}{r_{kk}}$
 \end{koda}
 
+Normalni sistem potem lahko rešimo kot:
+\[ A^TAx = A^Tb \implies Rx = Q^Tb\]
+
+\section{Razširjen QR razcep}
+\[ A \in \mathbb{R}^{m\times n} \quad m > n \quad \text{rang}A = n \]
+
+\begin{align*}
+	Q \in \mathbb{R}^{m\times m} \quad &\text{ortogonalna } \\
+	R \in \mathbb{R}^{m\times n} \quad &\text{kvazi zgornje trikotna} \\
+\end{align*}
+
+\[ \scriptstyle \min\limits_{x\in\mathbb{R}^n} \| Ax - b\| = \min\limits_{x\in\mathbb{R}^n} \| Q^T(Ax - b)\| = \min\limits_{x\in\mathbb{R}^n} \| Rx - Q^Tb \| \]
+
+\begin{align*}	
+	\left\| \underbrace{\begin{bmatrix}
+		\tilde{R} \\ 0
+	\end{bmatrix}}_{R}
+	\begin{bmatrix}
+		x
+	\end{bmatrix}
+	=
+	\underbrace{\begin{bmatrix}
+		c_1 \\
+		c_2
+	\end{bmatrix}}_{Q^T b}
+	\right\|^2_2
+	= \| \tilde{R}x - c_1 \|^2_2 + \|-c_2\|^2_2
+\end{align*}
+$x^*$ je rešitev $\tilde{R}x = c_1$.
+
+\subsection{Givensove rotacije}
+Matriko $A$ množimo z rotacijskimi matrikami $R_{ik}^T$
+\[ \underbrace{R_{n,m}^T \dots  R_{n,n+1}^T}_{\text{n. stolpec}} \dots \underbrace{R_{2m}^T \dots R_{23}^T}_{\text{2. stolpec}} \underbrace{R_{1m}^T \dots R_{12}^T}_{\text{1. stolpec}} A = R\]
+\[ Q = R_{12} \dots R_{n,m}\]
+Naj bo $x = (x_1, \dots, x_m)^T$ enak stolpcu, ki ga želimo popraviti.
+\[ r = \sqrt{x_i^2 + x_k^2} \quad c = \frac{x_i}{r} \qquad s = \frac{x_k}{r}\]
+Prvi $c$ je na presečišču $i$. vrstice in stolpca, drugi pa na presečišču $k$. vrstice in stolpca.
+\[R_{i,k}^T = \begin{bmatrix}   1   & \cdots &    0   & \cdots &    0   & \cdots &    0   \\
+	\vdots & \ddots & \vdots &        & \vdots &        & \vdots \\
+	   0   & \cdots &    c   & \cdots &   s   & \cdots &    0   \\
+	\vdots &        & \vdots & \ddots & \vdots &        & \vdots \\
+	   0   & \cdots &    -s   & \cdots &    c   & \cdots &    0   \\
+	\vdots &        & \vdots &        & \vdots & \ddots & \vdots \\
+	   0   & \cdots &    0   & \cdots &    0   & \cdots &    1
+\end{bmatrix}\]
+
+\begin{align*}
+	\tilde{R}_{i,k}^T &= \begin{bmatrix}
+		c & s \\
+		-s & c
+	\end{bmatrix} &
+	\tilde{R}_{i,k}^T \begin{bmatrix}
+		x_i \\ x_k
+	\end{bmatrix}
+	&=
+	\begin{bmatrix}
+		r \\ 0
+	\end{bmatrix}
+\end{align*}
 \end{multicols}
 \end{document}
