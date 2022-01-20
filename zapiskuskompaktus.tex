@@ -657,5 +657,19 @@ Potem je psevdoinverz matrike $A$:
 
 \subsection{Reševanje najmanjših kvadratov s psevdoinverzom}
 \[ x = A^+ b\]
+
+\section{Gram-Schmidtova ortogonalizacija}
+Definirajmo projekcijo vektorja $v$ na $u$
+\[\textmd{proj}_u(v) = \frac{\langle v,u \rangle}{\langle u,u \rangle}u\]
+Če želimo \emph{orotogonalizirati} $k$ linearno neodvisnih vektorjev $v_1, ..., v_k$, uporabimo postopek:
+\begin{equation*}
+    \begin{aligned}
+    u_1 &= v_1 \\
+    u_2 &= v_2 - \textmd{proj}_{u_1}(v_2) \\
+    u_3 &= v_3 - \textmd{proj}_{u_1}(v_3) - \textmd{proj}_{u_2}(v_3) \\
+    &\; \ \vdots \\
+    u_k &= v_k - \sum_{j=1}^{k-1} \textmd{proj}_{u_j}(v_k)
+    \end{aligned}
+\end{equation*}
 \end{multicols}
 \end{document}
