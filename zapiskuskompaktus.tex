@@ -478,7 +478,37 @@ Za določitev $\lambda$ gledamo $g_r(\lambda) = G(x^{(r)} + \lambda v_r)$:
 	Če je $g_r(\lambda_r) > g_r(0)$, razpolavljamo $\lambda_r$, dokler ni $g_r(\lambda_r) < g_r(0)$
 \end{itemize}
 
+\section{Metoda najmanjših kvadratov}
+\[ A x = b \qquad A \in \mathbb{R}^{m \times n} \quad b \in \mathbb{R}^m \quad x \in \mathbb{R}^n \quad x \gg n\]
+Predpostavimo, da je $A$ polnega ranga.
+Iščemo rešitev v smislu najmanjših kvadratov:
+\[ x^* = \underset{x \in \mathbb{R}^n}{\mathrm{argmin}} \| Ax - b \|_2 \]
+Geometrijsko je $x^*$ pravokotna projekcija $b$ na $\text{Im}A$:
+\[Ax^* - b\ \bot \ \text{Im}A \iff \forall i:\ a_i^T (Ax^* - b) = 0\]
+Rešitev lahko dobimo z \textbf{normalnim sistemom}:
+\[ A^T A x^* = A^T b \]
 
+\section{QR razcep}
+\[ A \in \mathbb{R}^{m\times n} \quad m > n \quad \text{rang}A = n \]
+
+Obstaja enoličen razcep $A = QR$
+\begin{align*}
+	Q \in \mathbb{R}^{m\times n} \quad &\text{z ortonormiranimi stolpci} \\
+	R \in \mathbb{R}^{n\times n} \quad &\text{zgornje trikotna s poz. diag. el.} \\
+\end{align*}
+
+\begin{koda}
+za vsak $k = 1, \dots, n$:
+	$q_k \leftarrow a_k$
+	za vsak $i = 1, \dots, k-1$:
+		ce modificiran nacin:
+			$r_{ik} \leftarrow q_i^T q_k$
+			$q_k \leftarrow q_k - r_{ik} q_i$
+		sicer:
+			$r_{ik} \leftarrow q_i^T a_k$
+	$r_{kk} \leftarrow \| q_k \|_2$
+	$q_k \leftarrow \frac{q_k}{r_{kk}}$
+\end{koda}
 
 \end{multicols}
 \end{document}
