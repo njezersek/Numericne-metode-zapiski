@@ -125,7 +125,7 @@ Naj bo $\alpha$  $m$-kratna ničla $\hat{\alpha}$ približek, da je $f(\hat{\alp
 \subsection{Bisekcija}
 
 \begin{koda}[]
-vhod: funkcija $f: [a,b] \to \mathbb{R}$, $f(a)f(b) < 0$, natancnost $\varepsilon$
+vhod: funkcija $f: [a,b] \to \mathbb{R}$, $f(a)f(b) < 0$,  $\varepsilon$
 izhod: nicla funkcije $f$
 
 dokler $|b-a| > \varepsilon$:
@@ -346,9 +346,20 @@ Matriko $A$ množimo z elementarnimi matrikami $L_k$
 \[U = L_{n-1} \dots L_1 A\]
 
 Za nesingularno matriko $A \in \mathbb{n\times n}$ obstaja enolični LU razcep $\iff$ vse vodilne podmatrike ($A_k = A(1:k, 1:k)$) nesingularne.
+\begin{koda}
+vhod: matrika $A \in \mathbb{R}^{n\times n}$ z elementi $a_{i,j}$
+izhod: spremenjena matrika $A$ tako, da je zgornji
+trikotnik $U$ spodnji pa $L$ ce damo 1 na diagonalo
+za vsak $j = 1,\dots, n-1$:
+	za vsak $i = j+1,\dots,n$:
+		$a_{i,j} \leftarrow \frac{a_{i,j}}{a_{j,j}}$
+		za vsak $k = j+1, \dots, n$:
+			$a_{i,k} \leftarrow a_{i,k}-a_{i,j}a_{j,k}$  
+\end{koda}
 
 \subsection{LU razcep z delnim pivotiranjem}
-Preden dolčimo $L_k$ zamenjamo $k$-to in $\underset{i=k \dots n}{\ \mathrm{argmax}} |a^{(k)}_{k,i}|$-to vrstico matrike $A^{k}$.
+Preden dolčimo $L_k$ zamenjamo $k$-to in $\underset{i=k \dots n}{\ \mathrm{argmax}} |a^{(k)}_{k,i}|$-to vrstico matrike $A^{k}$ in matrke $P$, ki je na začetku enaka $I$.
+\[PA = LU\]
 
 \subsection{Občutlivost sistemov linearnih enačb}
 \[ \kappa(A) = \| A^{-1} \| \| A \| \quad \text{število občutlivosti}\]
