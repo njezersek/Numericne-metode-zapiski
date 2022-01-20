@@ -604,5 +604,29 @@ Lastnosti matrike $P$
 	\item $w$ je lastni vektor z lastno vrednostjo $-1$
 \end{itemize}
 
+\section{Singularni razcep}
+\[ A \in \mathbb{R}^{m\times n} \quad m \geq n \qquad A = U \Sigma V^T\]
+
+\begin{align*}
+	U \in \mathbb{R}^{m\times m} \quad &\text{ortogonalna } \\
+	V \in \mathbb{R}^{n\times n} \quad &\text{ortogonalna } \\
+	\Sigma \in \mathbb{R}^{m\times n} \quad &\text{kvazi diagonalna } \\
+\end{align*}
+
+\[ \sigma_i (A) = \sqrt{\lambda_i(A^TA)} \quad \forall i\]
+
+Postopek:
+\begin{itemize}
+	\item $A^TA$ (simetrična pozitivno semidefinitna)
+	\item lastne vrednosti $A^TA$ označimo tako, da je $\lambda_1 \geq \dots \geq \lambda_n$
+	\item singularne vrednosti $A$ zložimo na diagonalo $\Sigma = \text{diag}(\sigma_1, \dots, \sigma_n)$
+	\item izračunamo lastne vektorje $A^TA$, jih normiramo in zložimo v $V = [v_1 \dots v_n]$
+	\item prvih $n$ stolpcev $U$ dobimo kot $u_i = \frac{1}{\sigma_i} A v_i$, ostale določimo tako, da so pravokotni na že izračunane. $U = [u_1 \dots u_n]$
+\end{itemize}
+
+\subsection{Reševanje najmanjših kvadratov s SVD}
+Če je $A \in \mathbb{R}^{m\times n}$, $\text{rang}(A) = n$, potem je minimum $\| Ax - b\|$ dosežen pri
+\[ x = \sum_{i=1}^n \frac{u_i^Tb}{\sigma_i} v_i\]
+
 \end{multicols}
 \end{document}
