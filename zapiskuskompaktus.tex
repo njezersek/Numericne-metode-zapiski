@@ -67,7 +67,7 @@ Kandidata za približek $\text{fl}(x)$ sta:
 Vzamemo tistega, ki je bljižje. Če sta enako blizu, izberemo tistega, ki ima zadnjo števko sodo.
 
 \subsubsection{Osnovna zaokrožitvena napaka}
-\[ u = \frac{1}{2} b^{-t} \]
+\[ u = \frac{1}{2} b^{1-t} \]
 \[ \text{fl}(x) = x(1+\delta) \quad \text{za} \quad |\delta| \leq u \]
 \[ \frac{|\text{fl}(x) - x|}{|x|} \leq u\]
 
@@ -186,12 +186,12 @@ Tedaj je red konvergence enak $p$.
 
 
 \subsection{Tangentna (Newtonova) metoda}
-\[ x_{r+1} = x_r - \frac{f(x_r)}{x_r}\]
-Red konvergence:
+\[ x_{r+1} = x_r - \frac{f(x_r)}{f'(x_r)}\]
+Red konvergence ($g$ je iteracijska funkcija):
 \begin{itemize}
-	\item 2, če je $\alpha$ enkratna ničla $f'(\alpha) \neq 0$
-	\item 3, če je $f'(\alpha) \neq 0$ in $f''(\alpha) = 0$
-	\item 1, če je $\alpha$ večkratna ničla $f'(\alpha) = 0$
+	\item $\geq 2$, če je $\alpha$ enkratna ničla $g'(\alpha) \neq 0$
+	\item $\geq 3$, če je $g'(\alpha) \neq 0$ in $g''(\alpha) = 0$
+	\item $= 1$, če je $\alpha$ večkratna ničla $g'(\alpha) = 0$
 \end{itemize}
 
 \subsection{Sekantna metoda}
@@ -200,7 +200,7 @@ Red konvergence:
 Red konvergence: $\frac{\sqrt{5}+1}{2} \approx 1.62$
 
 \subsection{Metoda $(f,f',f'')$}
-\[ x_{r+1} = x_r - \frac{f(x_r)}{f'(x_r)} - \frac{f''(x_r) f^2(x_r)}{2f'^3(x_r)}\]
+\[ x_{r+1} = x_r - \frac{f(x_r)}{f'(x_r)} - \frac{f''(x_r) f^2(x_r)}{2f'^2(x_r)}\]
 
 Red konvergence: 3 \textit{(pri predpostavkah)}
 
@@ -263,9 +263,9 @@ $\|\cdot \| : \mathbb{R}^{m \times n} \to \mathbb{R}_+$ je matrična norma, če
 
 \begin{align*}
 	\| A \|_1 &= \max_{x\neq 0} \frac{\| Ax\|_1}{\|x\|_1} = \max_{1 \leq j \leq n} \overbrace{\left( \sum_{k=1}^m |a_{kj}| \right)}^{\| a_j\|_1}\\
-	\| A \|_2 &= \max_{x\neq 0} \frac{\| Ax\|_2}{\|x\|_2} =\sqrt{\rho (A^T A)} \\
+	\| A \|_2 &= \max_{x\neq 0} \frac{\| Ax\|_2}{\|x\|_2} =\sqrt{\rho (A^H A)} \\
 	\| A \|_\infty &= \max_{x\neq 0} \frac{\| Ax\|_\infty}{\|x\|_\infty} = \max\limits_{1 \leq i \leq m} \left( \sum_{k=1}^n |a_{ik}| \right) \\
-	\| A \|_F &= \sqrt{\sum_{i,j} a_{ij}^2}\\
+	\| A \|_F &= \sqrt{\sum_{i,j} |a_{ij}|^2} = \sqrt{\text{tr}(A^H A)}\\
 	\| A \|_{op} &= \max_{\|c\|_v = 1} || A x ||_v \qquad \textit{$\|\cdot \|_v$ vekt. norma}
 \end{align*}
 
